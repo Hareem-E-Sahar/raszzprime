@@ -24,7 +24,7 @@ public class SvnExport {
 		final String destPath = "c:/tmp/svnfiles";
 		final String svnUserName = "syncuser";
 		final String svnPassword = "";
-		System.out.println("—————————————");
+		System.out.println("I-replaced this print statement");
 		//System.out.println("Repository URL " + args[0]);
 		//System.out.println("Checkout destination path: " + args[1]);
 

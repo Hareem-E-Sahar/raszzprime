@@ -1,0 +1,233 @@
+For Refactoring miner build failure see https://github.com/chatty/chatty/issues/241
+
+https://tecadmin.net/how-to-install-postgresql-in-ubuntu-20-04/
+
+sudo su - postgres  (and password=0bsolete2691) (or sudo -u postgres psql as superuser) 
+postgres@hareem-ThinkPad-P14s-Gen-1:~$ psql -c "alter user postgres with password 'Obsolete2691'" (But why is password set to 0bsolete2691?)
+postgres@hareem-ThinkPad-P14s-Gen-1:~$ createuser dbuser
+postgres@hareem-ThinkPad-P14s-Gen-1:~$ createdb testdb -O dbuser
+postgres@hareem-ThinkPad-P14s-Gen-1:~$ psql testdb
+psql -l
+alter user dbuser with password 'Obsolete2691'
+
+\q
+
+postgres@hareem-ThinkPad-P14s-Gen-1:~$ pg_restore -d testdb /home/hareem/Downloads/bkp_raszz_structure.backup
+
+\du for users
+\l to list databases
+\dt to list tables of certain schema
+
+pg_restore -d szz-bailey /home/hareem/Downloads/bkp_raszz_structure.backup
+
+
+===================================================================================================================================
+ 
+java -cp raszzprime/core-connector/build/classes:raszzprime/core-connector/libs/*:raszzprime/DiffJ/build/classes:raszzprime/DiffJ/libs/*:raszzprime/RefactoringMiner_Adapted/build/classes:raszzprime/RefactoringMiner_Adapted/libs/*:raszzprime/refdiff-core/build/classes:raszzprime/refdiff-core/libs/*:raszzprime/RA-SZZ/libs/*:raszzprime/RA-SZZ/build/classes br.ufrn.raszz.miner.szz.RaSZZ
+
+Error on this command 
+
+https://github.com/SZZ-Research/raszzprime/commit/a04cda734ff64d02f206052acc82db6a3f7d3914
+Then another table permissions error was resolved by running follwoing commands
+in psql shell.
+
+I ran:
+sudo su - postgres
+psql szz-bailey 
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO bspu;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO bspu;
+
+Exception in thread "main" java.lang.UnsupportedClassVersionError: com/baeldung/MajorMinorApp 
+  has been compiled by a more recent version of the Java Runtime (class file version 55.0), 
+  this version of the Java Runtime only recognizes class file versions up to 52.0
+
+This error is telling us that our class was compiled at a higher version of Java than the version with which we tried to run it. More specifically, in this case we compiled our class with Java 11 and tried to run it with Java 8.
+
+ public | apachemaillistmessage                   | table | postgres
+ public | archive                                 | table | postgres
+ public | archive_path                            | table | postgres
+ public | authorbugfixes                          | table | postgres
+ public | authorbugfixes_issueactivity            | table | postgres
+ public | bicagszz                                | table | postgres
+ public | bicbszz                                 | table | postgres
+ public | bicmaszz                                | table | postgres
+ public | bicmaszzgit                             | table | postgres
+ public | bicmaszztest                            | table | postgres
+ public | bicoracle                               | table | postgres
+ public | bicraszz                                | table | postgres
+ public | bicraszzgit                             | table | postgres
+ public | bicraszzold                             | table | postgres
+ public | bicszzse                                | table | postgres
+ public | bicszzse2                               | table | postgres
+ public | bicszzse3                               | table | postgres
+ public | blame                                   | table | postgres
+ public | buginarelease                           | table | postgres
+ public | bugintroducingcode                      | table | postgres
+ public | bugzillaissue                           | table | postgres
+ public | bugzillaissue_bugzillaissuecomment      | table | postgres
+ public | bugzillaissue_exception                 | table | postgres
+ public | bugzillaissuecomment                    | table | postgres
+ public | callerrefdiff                           | table | postgres
+ public | codecomplexity                          | table | postgres
+ public | codecontribution                        | table | postgres
+ public | commit                                  | table | postgres
+ public | commitarchive                           | table | postgres
+ public | commitindex                             | table | postgres
+ public | complexcommit                           | table | postgres
+ public | cqrequisition                           | table | postgres
+ public | cqrequisition_histories                 | table | postgres
+ public | defects4jpatches                        | table | postgres
+ public | diff                                    | table | postgres
+ public | diffchild                               | table | postgres
+ public | diffchild_additions                     | table | postgres
+ public | diffchild_blames                        | table | postgres
+ public | diffchild_removals                      | table | postgres
+ public | diffline                                | table | postgres
+ public | exception                               | table | postgres
+ public | exception                               | table | postgres
+ public | exceptionalissue                        | table | postgres
+ public | exceptionalissue_minedexception         | table | postgres
+ public | exceptionalissue_minedstacktrace        | table | postgres
+ public | exceptionalissuereport                  | table | postgres
+ public | exceptionalissuereport_exceptionalissue | table | postgres
+ public | exceptionalissuereport_minedexception   | table | postgres
+ public | fixingcommit_buggycommit                | table | postgres
+ public | ghtorrentissue                          | table | postgres
+ public | ghtorrentissue_exception                | table | postgres
+ public | ghtorrentissue_ghtorrentissuecomment    | table | postgres
+ public | ghtorrentissuecomment                   | table | postgres
+ public | issueactivity                           | table | postgres
+ public | issuecontents                           | table | postgres
+ public | issuecontents_affectedversions          | table | postgres
+ public | issuecontents_comments                  | table | postgres
+ public | issuecontents_mercurialcommit           | table | postgres
+ public | issuecontents_revisions                 | table | postgres
+ public | jiraissue                               | table | postgres
+ public | jiraissue_exception                     | table | postgres
+ public | jiraissue_jiraissuecomment              | table | postgres
+ public | jiraissuecomment                        | table | postgres
+ public | linkedissuegit                          | table | postgres
+ public | linkedissuessvn                         | table | postgres
+ public | mercurialcommit                         | table | postgres
+ public | mercurialcommit_files                   | table | postgres
+ public | minedexception                          | table | postgres
+ public | minedstacktrace                         | table | postgres
+ public | path                                    | table | postgres
+ public | refdiffresult                           | table | postgres
+ public | release                                 | table | postgres
+ public | release_issuecontents                   | table | postgres
+ public | szz_project_lastrevisionprocessed       | table | postgres
+ public | szz_refac_revisionprocessed             | table | postgres
+ public | wordoccurrence                          | table | postgres
+(75 rows)
+
+
+ airflow
+ amq
+ amqcpp
+ amqnet
+ aries
+ arrow
+ artemis
+ avro
+ axis
+ axis2
+ axis2c
+ bigtop
+ buildr
+ camel
+ cay
+ cb
+ cocoon
+ configuration
+ continuum
+ couchdb
+ crunch
+ cxf
+ deltaspike
+ derby
+ dirmina
+ dirserver
+ dirstudio
+ dispatch
+ doxia
+ drill
+ felix
+ flex
+ flink
+ flume
+ groovy
+ hadoop
+ httpclient
+ httpcore
+ ignite
+ impala
+ io
+ isis
+ ivy
+ jclouds
+ jcr
+ jdo
+ jena
+ jspwiki
+ juddi
+ kafka
+ karaf
+ kylin
+ lang
+ log4j2
+ mahout
+ marmotta
+ massembly
+ math
+ mjavadoc
+ mng
+ mrelease
+ mrm
+ myfaces
+ net
+ nutch
+ oak
+ ode
+ ofbiz
+ olingo
+ openejb
+ openjpa
+ openmeetings
+ owb
+ pdfbox
+ pig
+ pluto
+ proton
+ qpid
+ qpidjms
+ scm
+ sling
+ sm
+ solr
+ spark
+ stdcxx
+ surefire
+ syncope
+ tap5
+ tapestry
+ thrift
+ tika
+ tinkerpop
+ tobago
+ trinidad
+ tuscany
+ wicket
+ wss
+ xercesc
+ xercesj
+ zookeeper
+(100 rows)
+
+========================================================================
+select count(*) from linkedissuessvn where projectname like 'zookeeper';
+count =  2955 (nrows = /home/hareem/raszzprime/scripts/Top100ProjectsBugFixes/ZOOKEEPERBugFixes.csv)
+
+
+
+

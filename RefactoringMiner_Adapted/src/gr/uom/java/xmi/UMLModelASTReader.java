@@ -254,7 +254,8 @@ public class UMLModelASTReader {
 		log.debug("went out from node insertion");
 
 		log.debug("entering while with has more elements");
-		Enumeration<DefaultMutableTreeNode> enumeration = root.preorderEnumeration();
+		//Enumeration<DefaultMutableTreeNode> enumeration = root.preorderEnumeration();
+		Enumeration<DefaultMutableTreeNode> enumeration= (Enumeration<DefaultMutableTreeNode>)(Object)root.preorderEnumeration();
 		while(enumeration.hasMoreElements()) {
 			DefaultMutableTreeNode node = enumeration.nextElement();
 			if(node.getUserObject() != null) {
@@ -414,7 +415,9 @@ public class UMLModelASTReader {
 	
 	private void insertNode(AnonymousClassDeclaration childAnonymous, DefaultMutableTreeNode root) {
 
-		Enumeration<DefaultMutableTreeNode> enumeration = root.postorderEnumeration();
+		//Enumeration<DefaultMutableTreeNode> enumeration = root.postorderEnumeration();
+		Enumeration<DefaultMutableTreeNode> enumeration=(Enumeration<DefaultMutableTreeNode>)(Object)root.postorderEnumeration();
+		
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(childAnonymous);
 		DefaultMutableTreeNode parentNode = root;
 		while(enumeration.hasMoreElements()) {
